@@ -29,6 +29,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.DirectorId)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -36,7 +37,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayNameFor(model => model.Id)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -45,10 +46,10 @@
                     @Html.DisplayFor(modelItem => item.Year)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Revenue)
+                    @Html.DisplayFor(modelItem => item.Revenue)$
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DirectorId)
+                    @Html.DisplayFor(modelItem => item.DirectorOutput)
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;

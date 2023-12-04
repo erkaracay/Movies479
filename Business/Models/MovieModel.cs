@@ -1,10 +1,12 @@
 ﻿#nullable disable
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Business.Models
 {
 	public class MovieModel
 	{
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -15,9 +17,11 @@ namespace Business.Models
 
         public double Revenue { get; set; }
 
+        [DisplayName("Director")]
         public int? DirectorId { get; set; }
 
-        public int Guid { get; set; }
+        [DisplayName("Director")]
+        public string DirectorOutput { get; set; }
     }
 }
 

@@ -34,7 +34,6 @@ namespace Business.Services
                 Revenue = model.Revenue,
                 Year = model.Year,
                 DirectorId = model.DirectorId,
-                Guid = model.Guid.ToString()
             };
 
             _db.Movies.Add(entity);
@@ -58,12 +57,12 @@ namespace Business.Services
             .ThenBy(e => e.Name)
             .Select(e => new MovieModel()
             {
-                // model - entity property assignments
                 Id = e.Id,
                 Name = e.Name,
+                DirectorId = e.DirectorId,
+                DirectorOutput = e.Director.Name + " " + e.Director.Surname,
                 Year = e.Year,
-                Revenue = e.Revenue,
-                DirectorId = e.DirectorId
+                Revenue = e.Revenue
             });
         }
 

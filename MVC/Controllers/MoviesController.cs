@@ -11,10 +11,12 @@ namespace MVC.Controllers
     {
         // Add service injections here
         private readonly IMovieService _movieService;
+        private readonly IDirectorService _directorService;
 
-        public MoviesController(IMovieService movieService)
+        public MoviesController(IMovieService movieService, IDirectorService directorService)
         {
             _movieService = movieService;
+            _directorService = directorService;
         }
 
         // GET: Movies
@@ -38,14 +40,11 @@ namespace MVC.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
-            ViewData["DirectorId"] = new SelectList(_movieService.Query().ToList(), "Id", "Name");
+            ViewData["DirectorId"] = new SelectList(_directorService.Query().ToList(), "Id", "NameOutput");
             return View();
         }
 
         // POST: Movies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(MovieModel movie)
@@ -60,7 +59,8 @@ namespace MVC.Controllers
                 }
                 ModelState.AddModelError("", "Movie couldn't be added!");
             }
-            ViewData["AlbumId"] = new SelectList(_movieService.Query().ToList(), "Id", "Name");
+
+            ViewData["DirectorId"] = new SelectList(_directorService.Query().ToList(), "Id", "NameOutput");
             return View(movie);
         }
 
@@ -72,13 +72,11 @@ namespace MVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["DirectorId"] = new SelectList(_movieService.Query().ToList(), "Id", "Name");
+            ViewData["DirectorId"] = new SelectList(_directorService.Query().ToList(), "Id", "Surname");
             return View(movie);
         }
 
         // POST: Movies/Edit
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(MovieModel movie)
@@ -93,19 +91,19 @@ namespace MVC.Controllers
                 }
                 ModelState.AddModelError("", "Movie couldn't be updated!");
             }
-            ViewData["DirectorId"] = new SelectList(_movieService.Query().ToList(), "Id", "Name");
+            ViewData["DirectorId"] = new SelectList(_directorService.Query().ToList(), "Id", "Surname");
             return View(movie);
         }
 
         // GET: Movies/Delete/5
         public IActionResult Delete(int id)
         {
-            MovieModel song = _movieService.Query().SingleOrDefault(m => m.Id == id); // TODO: Add get item service logic here
-            if (song == null)
+            MovieModel movie = _movieService.Query().SingleOrDefault(m => m.Id == id);
+            if (movie == null)
             {
                 return NotFound();
             }
-            return View(song);
+            return View(movie);
         }
 
         // POST: Movies/Delete

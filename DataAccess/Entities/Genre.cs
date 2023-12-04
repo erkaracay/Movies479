@@ -7,5 +7,5 @@ public class Genre : Record
 {
     [StringLength(75)]
     public string Name  { get; set; }
-    public List<Movie> Movies  { get; set; }
+    public List<MovieGenre> MovieGenres { get; set; }
 }
